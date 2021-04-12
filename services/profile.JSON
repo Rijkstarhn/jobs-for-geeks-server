@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "jack",
+    "type": "job seeker",
+    "phone": "123-456",
+    "email": "jack@gmail.cp,",
+    "location": "boston",
+    "description": "c++"
+  },
+  {
+    "id": 2,
+    "name": "bob",
+    "type": "recruiter",
+    "phone": "123-456",
+    "email": "jack@gmail.cp,",
+    "location": "New York",
+    "company": "amazon"
+  },
+  {
+    "id": 3,
+    "name": "alice",
+    "type": "job seeker",
+    "phone": "123-456",
+    "email": "alice@gmail.cp,",
+    "location": "Seattle",
+    "description": "c++"
+  }
+]

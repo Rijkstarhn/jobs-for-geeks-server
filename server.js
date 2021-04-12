@@ -28,8 +28,6 @@ app.use(function (req, res, next) {
 const demos = require('./controllers/demo-controller');
 demos(app);
 
-// const quizzesController = require("./controllers/quizzes-controller")
-// quizzesController(app)
 
 require("./controllers/quizzes-controller")(app)
 require("./controllers/question-controller")(app)
