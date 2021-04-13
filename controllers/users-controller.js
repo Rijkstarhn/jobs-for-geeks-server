@@ -1,43 +1,55 @@
+const usersService = require('../services/users-service');
+
 module.exports = (app) => {
-     const usersModel = require("../db/users/users-model")
+    app.get('/api/users', (req, res) =>
+        usersService.findAllUsers()
+            .then(allUsers => res.send(allUsers)));
 
-    const register = (req, res) => {
-        const user = req.body;
-        // TODO: move this to a service file
-        usersModel.create(user)
-            .then((actualUser) => {
-                req.session['currentUser'] = actualUser
-                res.send(actualUser)
-            })
-    }
-    const login = (req, res) => {
-        const user = req.body;
-        usersModel.find({
-            username: user.username,
-            password: user.password
-        }).then((actualUser) => {
-            if(actualUser) {
-                req.session["currentUser"] = actualUser
-                res.send(actualUser)
-            } else {
-                res.send(403)
-            }
-        })
-    }
-    const logout = (req, res) => {
-        req.session
-    }
-    const profile = (req, res) => {
-        const currentUser = req.session["currentUser"]
-        if(currentUser) {
-            res.send(currentUser)
+    app.post("/api/users/register", (req, res) =>
+        usersService.register(req.body)
+            .then(user => {
+                if (isNaN(user)) {
+                    req.session["profile"] = user;
+                    res.send(user)
+                } else {
+                    res.sendStatus(user)
+                }
+            }));
+
+    app.post("/api/users/login", (req, res) =>
+        usersService.login(req.body)
+            .then(user => {
+                if (isNaN(user)) {
+                    req.session["profile"] = user;
+                    res.send(user)
+                } else {
+                    res.sendStatus(user)
+                }
+            }));
+
+    app.get("/api/users/logout", (req, res) => {
+        req.session.destroy();
+        res.sendStatus(200)
+    });
+
+    app.get("/api/users/profile", (req, res) => {
+        console.log(req.session["profile"]);
+        const user = req.session["profile"];
+        if (user) {
+            res.send(user)
         } else {
-            res.send(403)
+            res.send({})
         }
-    }
+    });
 
-    app.post("/api/register", register)
-    app.post("/api/login", login)
-    app.post("/api/logout", logout)
-    app.post("/api/profile", profile)
-}
+    app.put('/api/users/:uid', (req, res) =>
+        usersService.updateUser(req.params.uid, req.body)
+            .then(user => {
+                if (isNaN(user)) {
+                    req.session["profile"] = user;
+                    res.send(user)
+                } else {
+                    res.sendStatus(user)
+                }
+            }));
+};
