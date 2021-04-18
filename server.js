@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/webbew',
+mongoose.connect('mongodb+srv://webbew:12345@cluster0.yd2ze.mongodb.net/WEBBEW?retryWrites=true&w=majority',
     {useNewUrlParser: true,
     useUnifiedTopology: true});
 
