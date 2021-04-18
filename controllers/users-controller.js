@@ -5,6 +5,10 @@ module.exports = (app) => {
         usersService.findAllUsers()
             .then(allUsers => res.send(allUsers)));
 
+    app.get('/api/users/:uid', (req, res) =>
+        usersService.findUserById(req.params.uid)
+            .then(user=> res.send(user)));
+
     app.post("/api/users/register", (req, res) =>
         usersService.register(req.body)
             .then(user => {

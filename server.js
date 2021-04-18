@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/webbew');
+mongoose.connect('mongodb://localhost:27017/webbew',
+    {useNewUrlParser: true,
+    useUnifiedTopology: true});
 
 const session = require('express-session')
 app.use(session({
@@ -13,6 +15,9 @@ app.use(session({
     cookie: { sameSite: 'none', secure: true }
 }));
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // configure CORS
 app.use(function (req, res, next) {
@@ -26,5 +31,6 @@ app.use(function (req, res, next) {
 
 
 require('./controllers/users-controller')(app);
+require('./controllers/jobs-controller')(app);
 
 app.listen(process.env.PORT || 4000);

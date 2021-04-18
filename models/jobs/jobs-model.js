@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const jobSchema = require('./jobs-model');
+const jobSchema = require('./jobs-schema');
 
 const jobModel =
     mongoose.model('JobModel', jobSchema);

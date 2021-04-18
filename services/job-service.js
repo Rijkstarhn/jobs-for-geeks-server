@@ -1,4 +1,4 @@
-const jobsDao = require('../daos/job-dao');
+const jobsDao = require('../daos/jobs-dao');
 
 const findAllJobs = () => jobsDao.findAllJobs();
 
@@ -8,12 +8,9 @@ const findJobsForUser = (uid) => jobsDao.findJobsForUser(uid);
 
 const createJobForUser = (uid, job) => {
     const newJob = {
-        infoId: job.id,
+        jobId: job.id,
         userId: uid,
-        name: job.name,
-        description: job.description,
-        location: job.location,
-        full_time: job.full_time,
+        title: job.title,
     };
     return jobsDao.createJob(newJob)
 };

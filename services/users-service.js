@@ -2,13 +2,13 @@ const usersDao = require('../daos/users-dao');
 
 const findAllUsers = () => usersDao.findAllUsers();
 
+const findUserById = (uid) => usersDao.findUserById(uid);
+
 const register = (userDetails) => {
     const username = userDetails.username;
     const password = userDetails.password;
-    const firstName = userDetails.firstName;
-    const lastName = userDetails.lastName;
-
-    const user = {username, password, firstName, lastName};
+    const role = userDetails.role;
+    const user = {username, password, role};
 
     return usersDao.findUsername(username)
         .then(existingUser => {
@@ -37,4 +37,4 @@ const login = (userCredentials) => {
 
 const updateUser = (uid, user) => usersDao.updateUser(uid, user);
 
-module.exports = { findAllUsers, register, login, updateUser };
+module.exports = { findAllUsers, findUserById, register, login, updateUser };
