@@ -1,4 +1,19 @@
 const jobsDao = require('../daos/jobs-dao');
+const fetch = require("node-fetch");
+
+
+const testAPI = () => {
+    let myHeaders = new fetch.Headers();
+    // myHeaders.append("Authorization", "Bearer USKt3O-gORv2gdyeUPjMv5caAL3RWgEyXai4s6EErYIRJLo8DWfAiSD_kb0A4-Wka1wd7XIbhismPhEmeJmkugis-_DWsCzIOWtMbLLWIHL9KQpCuwdIPXY3oKN3YHYx");
+
+    let requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    return fetch("https://jobs.github.com/positions.json?description=python&full_time=true&location=sf", requestOptions);
+}
 
 const findAllJobs = () => jobsDao.findAllJobs();
 
@@ -26,4 +41,5 @@ module.exports = {
     createJobForUser: createJobForUser,
     deleteJob,
     updateJob,
+    testAPI,
 };

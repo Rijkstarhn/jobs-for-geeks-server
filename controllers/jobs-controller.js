@@ -24,4 +24,13 @@ module.exports = (app) => {
     app.put('/api/jobs/:jid', (req, res) =>
         jobsService.updateJob(req.params.jid, req.body)
             .then(job => res.send(job)));
+
+    app.get('/findRes/', (req, res) => {
+        jobsService.testAPI()
+            .then(response => response.json())
+            .then(responseJson => res.send(responseJson))
+            .catch(error => console.log('error', error));
+
+            // .then(response => res.send(response.body))
+    })
 };
