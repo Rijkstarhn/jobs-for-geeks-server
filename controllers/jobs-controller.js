@@ -25,12 +25,17 @@ module.exports = (app) => {
         jobsService.updateJob(req.params.jid, req.body)
             .then(job => res.send(job)));
 
-    app.get('/findRes/', (req, res) => {
-        jobsService.testAPI()
+    app.get('/search/default', (req, res) => {
+        jobsService.searchDefaultJobs()
             .then(response => response.json())
             .then(responseJson => res.send(responseJson))
             .catch(error => console.log('error', error));
+    })
 
-            // .then(response => res.send(response.body))
+    app.get('/search/:jobDescription/:jobLocation/:isFullTime', (req, res) => {
+        jobsService.searchJob(req.params)
+            .then(res => res.json())
+            .then(job => res.send(job))
+            .catch(error => console.log('error', error))
     })
 };
