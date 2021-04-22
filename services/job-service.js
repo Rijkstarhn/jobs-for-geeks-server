@@ -13,7 +13,7 @@ const searchDefaultJobs = () => {
 }
 
 const searchJob = (params) => {
-    console.log('url:', `${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`)
+    // console.log('url:', `${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`)
     let requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -28,13 +28,39 @@ const findJobById = (jid) => jobsDao.findJobById(jid);
 const findJobsForUser = (uid) => jobsDao.findJobsForUser(uid);
 
 const createJobForUser = (uid, job) => {
-    const newJob = {
-        jobId: job.id,
-        userId: uid,
-        title: job.title,
-    };
-    return jobsDao.createJob(newJob)
+    let findJobCondition = {};
+    findJobCondition.company = job.company;
+    findJobCondition.createdTime = job.createdTime;
+    return jobsDao.findAJob(findJobCondition)
+        .then(foundJob => {
+            let newJob = {};
+            if (foundJob.length === 0) {
+                jobsDao.countJobs()
+                    .then(num => {
+                        newJob = {
+                            jobId: num.toString(),
+                            userId: uid,
+                            company: job.company,
+                            createdTime: job.createdTime,
+                            title: job.title,
+                            note: job.note,
+                        }
+                        return jobsDao.createJob(newJob);
+                    })
+            }
+            else {
+                if (foundJob[0].userId.find(element => uid === element) !== undefined) {
+                    return null;
+                } else {
+                    return jobsDao.updateJobUser(foundJob[0]._id, uid);
+                }
+            }
+        })
 };
+
+// const testAwait = (uid, job) => {
+//
+// }
 
 const deleteJob = (jid) => jobsDao.deleteJob(jid);
 
