@@ -17,9 +17,14 @@ const updateUser = (uid, user) => usersModel.updateOne({_id: uid},
 
 const addJobToUser = (name, jobName) => {
     // Do care the updateOne will return a query, if you don't exec it, it will not update data!!!
-    // console.log("hhh", usersModel.updateOne({username: name}, {$push: {jobs: jobName}}));
-    usersModel.updateOne({username: name}, {$push: {jobs: jobName}})
+    // console.log("hhh", usersModel.updateOne({username: name}, {$push: {interestedJobs: jobName}}));
+    usersModel.updateOne({username: name}, {$push: {interestedJobs: jobName}})
         .catch(error => console.log(error));
+}
+
+const createSeekerForRecruiter = (name, seekerId) => {
+    console.log("mmm:", typeof name, name, typeof seekerId, seekerId);
+    return usersModel.updateOne({username: name}, {$push:{interestedUsers: seekerId}});
 }
 
 module.exports = {
@@ -30,5 +35,6 @@ module.exports = {
     findUsername,
     createUser,
     updateUser,
-    addJobToUser
+    addJobToUser,
+    createSeekerForRecruiter,
 };

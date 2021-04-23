@@ -61,10 +61,6 @@ const createJobForUser = (uid, job) => {
         })
 };
 
-// const testAwait = (uid, job) => {
-//
-// }
-
 const deleteJob = (jid) => jobsDao.deleteJob(jid);
 
 const updateJob = (jid, job) => jobsDao.updateJob(jid, job);

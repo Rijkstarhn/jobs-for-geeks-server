@@ -56,4 +56,8 @@ module.exports = (app) => {
                     res.sendStatus(user)
                 }
             }));
+
+    app.post('/api/users/:uid/seekers', (req, res) =>
+        usersService.createSeekerForRecruiter(req.params.uid, req.body)
+            .then(job => res.send(job)));
 };
