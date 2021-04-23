@@ -22,6 +22,15 @@ const searchJob = (params) => {
     return fetch(`${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`, requestOptions);
 }
 
+const searchJobById = (param) => {
+    // console.log('url:', `${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`)
+    let requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    return fetch(`https://jobs.github.com/positions/${param.jobId}.json`, requestOptions);
+}
+
 const findAllJobs = () => jobsDao.findAllJobs();
 
 const findJobById = (jid) => jobsDao.findJobById(jid);
@@ -74,4 +83,5 @@ module.exports = {
     updateJob,
     searchDefaultJobs,
     searchJob,
+    searchJobById,
 };

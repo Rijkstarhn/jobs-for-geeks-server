@@ -38,4 +38,11 @@ module.exports = (app) => {
             .then(job => res.send(job))
             .catch(error => console.log('error', error))
     })
+
+    app.get('/search/id/:jobId', (req, res) => {
+        jobsService.searchJobById(req.params)
+            .then(res => res.json())
+            .then(job => res.send(job))
+            .catch(error => console.log('error', error))
+    })
 };
