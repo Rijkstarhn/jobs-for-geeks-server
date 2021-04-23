@@ -46,9 +46,9 @@ const createJobForUser = (uid, job) => {
             let newJob = {};
             if (foundJob.length === 0) {
                 jobsDao.countJobs()
-                    .then(num => {
+                    .then(() => {
                         newJob = {
-                            jobId: num.toString(),
+                            jobId: job.id,
                             userId: uid,
                             company: job.company,
                             createdTime: job.createdTime,
