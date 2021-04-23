@@ -15,8 +15,8 @@ const usersSchema = mongoose.Schema(
             experience: String,
             skills: String,
             licenceAndCertifications: String,
-            users: [{type: String, ref: 'UserModel'}],
-            jobs:[{type: String, ref: 'JobModel'}],
+            interestedUsers: [{type: String, ref: 'UserModel'}],
+            interestedJobs:[{type: String, ref: 'JobModel'}],
     }, {collection: 'users'});
 
 module.exports = usersSchema;
