@@ -57,7 +57,16 @@ module.exports = (app) => {
                 }
             }));
 
-    app.post('/api/users/:uid/seekers', (req, res) =>
-        usersService.createSeekerForRecruiter(req.params.uid, req.body)
-            .then(job => res.send(job)));
+    app.post('/api/users/:uid/seekers', (req, res) => {
+        usersService.findUserById(req.params.uid)
+            .then(foundUser => {
+                if (foundUser.interestedUsers.find(ele => ele === req.body._id) === undefined) {
+                    usersService.createSeekerForRecruiter(req.params.uid, req.body)
+                        .then(job => res.send(job));
+                } else {
+                    // each else statement need a res.send
+                    res.send("Already added!");
+                }
+            })
+    })
 };

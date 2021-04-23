@@ -37,8 +37,8 @@ const login = (userCredentials) => {
 
 const updateUser = (uid, user) => usersDao.updateUser(uid, user);
 
-const createSeekerForRecruiter = (username, seeker) => {
-    return usersDao.createSeekerForRecruiter(username, seeker._id);
+const createSeekerForRecruiter = (uid, seeker) => {
+    return usersDao.createSeekerForRecruiter(uid, seeker._id);
 }
 
 module.exports = { findAllUsers, findUserById, register, login, updateUser, createSeekerForRecruiter };
