@@ -15,16 +15,14 @@ const createUser = (user) => usersModel.create(user);
 const updateUser = (uid, user) => usersModel.updateOne({_id: uid},
     {$set: user});
 
-const addJobToUser = (name, jobName) => {
+const addJobToUser = (uid, jobName) => {
     // Do care the updateOne will return a query, if you don't exec it, it will not update data!!!
     // console.log("hhh", usersModel.updateOne({username: name}, {$push: {interestedJobs: jobName}}));
-    usersModel.updateOne({username: name}, {$push: {interestedJobs: jobName}})
-        .catch(error => console.log(error));
+    return usersModel.updateOne({_id: uid}, {$push: {interestedJobs: jobName}});
 }
 
-const createSeekerForRecruiter = (name, seekerId) => {
-    console.log("mmm:", typeof name, name, typeof seekerId, seekerId);
-    return usersModel.updateOne({username: name}, {$push:{interestedUsers: seekerId}});
+const createSeekerForRecruiter = (uid, seekerId) => {
+    return usersModel.updateOne({_id: uid}, {$push:{interestedUsers: seekerId}});
 }
 
 module.exports = {
