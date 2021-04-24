@@ -4,6 +4,8 @@ const findAllUsers = () => usersModel.find();
 
 const findUserById = (uid) => usersModel.findById(uid);
 
+const findUsersByMultipleIds = (uid) => usersModel.find({ _id: { $in: uid }});
+
 const addUser = (user) => usersModel.create(user);
 
 const findUserLogin = (username, password) => usersModel.findOne({username: username, password: password});
@@ -28,6 +30,7 @@ const createSeekerForRecruiter = (uid, seekerId) => {
 module.exports = {
     findAllUsers,
     findUserById,
+    findUsersByMultipleIds,
     addUser,
     findUserLogin,
     findUsername,

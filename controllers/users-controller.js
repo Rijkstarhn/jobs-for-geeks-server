@@ -62,11 +62,15 @@ module.exports = (app) => {
             .then(foundUser => {
                 if (foundUser.interestedUsers.find(ele => ele === req.body._id) === undefined) {
                     usersService.createSeekerForRecruiter(req.params.uid, req.body)
-                        .then(job => res.send(job));
+                        .then(seeker => res.send(seeker));
                 } else {
                     // each else statement need a res.send
                     res.send("Already added!");
                 }
             })
     })
+
+    app.get('/api/users/:uid/seekers', (req, res) =>
+        usersService.findSeekersForUser(req.params.uid)
+            .then(seekers => res.send(seekers)));
 };

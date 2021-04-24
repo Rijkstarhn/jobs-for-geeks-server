@@ -41,4 +41,16 @@ const createSeekerForRecruiter = (uid, seeker) => {
     return usersDao.createSeekerForRecruiter(uid, seeker._id);
 }
 
-module.exports = { findAllUsers, findUserById, register, login, updateUser, createSeekerForRecruiter };
+const findSeekersForUser = (uid) => {
+    return usersDao.findUserById(uid)
+        .then(user =>{
+            if (user) {
+                const candidates = user.interestedUsers;
+                return usersDao.findUsersByMultipleIds(candidates);
+            } else {
+                return 403
+            }
+        })
+}
+
+module.exports = { findAllUsers, findUserById, register, login, updateUser, createSeekerForRecruiter, findSeekersForUser };

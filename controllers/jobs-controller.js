@@ -1,4 +1,5 @@
 const jobsService = require('../services/job-service');
+const jobsSearchService = require('../services/job-search-service');
 
 module.exports = (app) => {
     app.get('/api/jobs', (req, res) =>
@@ -26,21 +27,21 @@ module.exports = (app) => {
             .then(job => res.send(job)));
 
     app.get('/search/default', (req, res) => {
-        jobsService.searchDefaultJobs()
+        jobsSearchService.searchDefaultJobs()
             .then(response => response.json())
             .then(responseJson => res.send(responseJson))
             .catch(error => console.log('error', error));
     })
 
     app.get('/search/:jobDescription/:jobLocation/:isFullTime', (req, res) => {
-        jobsService.searchJob(req.params)
+        jobsSearchService.searchJob(req.params)
             .then(res => res.json())
             .then(job => res.send(job))
             .catch(error => console.log('error', error))
     })
 
     app.get('/search/id/:jobId', (req, res) => {
-        jobsService.searchJobById(req.params)
+        jobsSearchService.searchJobById(req.params)
             .then(res => res.json())
             .then(job => res.send(job))
             .catch(error => console.log('error', error))

@@ -1,35 +1,5 @@
 const jobsDao = require('../daos/jobs-dao');
 const usersDao = require('../daos/users-dao');
-const fetch = require("node-fetch");
-
-const GITJOBS_URL = "https://jobs.github.com/positions.json?";
-
-const searchDefaultJobs = () => {
-    let requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    return fetch("https://jobs.github.com/positions.json?", requestOptions);
-}
-
-const searchJob = (params) => {
-    // console.log('url:', `${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`)
-    let requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    return fetch(`${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`, requestOptions);
-}
-
-const searchJobById = (param) => {
-    // console.log('url:', `${GITJOBS_URL}description=${params.jobDescription}&full_time=${params.isFullTime}&location=${params.jobLocation}`)
-    let requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-    return fetch(`https://jobs.github.com/positions/${param.jobId}.json`, requestOptions);
-}
 
 const findAllJobs = () => jobsDao.findAllJobs();
 
@@ -81,7 +51,4 @@ module.exports = {
     createJobForUser: createJobForUser,
     deleteJob,
     updateJob,
-    searchDefaultJobs,
-    searchJob,
-    searchJobById,
 };
