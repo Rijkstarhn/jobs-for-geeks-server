@@ -53,4 +53,17 @@ const findSeekersForUser = (uid) => {
         })
 }
 
-module.exports = { findAllUsers, findUserById, register, login, updateUser, createSeekerForRecruiter, findSeekersForUser };
+const deleteSeekerForRecruiter = (uid, seeker) => {
+    return usersDao.deleteSeekerForRecruiter(uid, seeker._id);
+}
+
+module.exports = {
+    findAllUsers,
+    findUserById,
+    register,
+    login,
+    updateUser,
+    createSeekerForRecruiter,
+    findSeekersForUser,
+    deleteSeekerForRecruiter,
+};

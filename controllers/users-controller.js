@@ -68,9 +68,21 @@ module.exports = (app) => {
                     res.send("Already added!");
                 }
             })
-    })
+    });
 
     app.get('/api/users/:uid/seekers', (req, res) =>
         usersService.findSeekersForUser(req.params.uid)
             .then(seekers => res.send(seekers)));
+
+    app.delete('/api/users/:uid/seekers', (req, res) => {
+        usersService.findUserById(req.params.uid)
+            .then(foundUser => {
+                if (foundUser.interestedUsers.find(ele => ele === req.body._id) === undefined) {
+                    res.send("Not found");
+                } else {
+                    usersService.deleteSeekerForRecruiter(req.params.uid, req.body)
+                        .then(seeker => res.send(seeker));
+                }
+            })
+    });
 };

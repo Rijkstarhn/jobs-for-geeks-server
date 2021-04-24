@@ -24,7 +24,11 @@ const addJobToUser = (uid, jobName) => {
 }
 
 const createSeekerForRecruiter = (uid, seekerId) => {
-    return usersModel.updateOne({_id: uid}, {$push:{interestedUsers: seekerId}});
+    return usersModel.updateOne({_id: uid}, {$push: {interestedUsers: seekerId}});
+}
+
+const deleteSeekerForRecruiter = (uid, seekerId) => {
+    return usersModel.updateOne({_id: uid}, {$pullAll: {interestedUsers: [seekerId]}});
 }
 
 module.exports = {
@@ -38,4 +42,5 @@ module.exports = {
     updateUser,
     addJobToUser,
     createSeekerForRecruiter,
+    deleteSeekerForRecruiter,
 };
