@@ -14,7 +14,7 @@ const usersSchema = mongoose.Schema(
             education: String,
             experience: String,
             skills: String,
-            licenceAndCertifications: String,
+            licence: String,
             interestedUsers: [{type: String, ref: 'UserModel'}],
             interestedJobs:[{type: String, ref: 'JobModel'}],
     }, {collection: 'users'});
