@@ -8,20 +8,23 @@ const findJobById = (jid) => jobsDao.findJobById(jid);
 const findJobsForUser = (uid) => jobsDao.findJobsForUser(uid);
 
 const createJobForUser = (uid, job) => {
+    console.log("called!", job.created_at);
     let findJobCondition = {};
     findJobCondition.company = job.company;
-    findJobCondition.createdTime = job.createdTime;
+    findJobCondition.createdTime = job.created_at;
     return jobsDao.findAJob(findJobCondition)
         .then(foundJob => {
+            console.log("foundJob", foundJob)
             let newJob = {};
             if (foundJob.length === 0) {
+                console.log("if");
                 jobsDao.countJobs()
                     .then(() => {
                         newJob = {
                             jobId: job.id,
                             userId: uid,
                             company: job.company,
-                            createdTime: job.createdTime,
+                            createdTime: job.created_at,
                             title: job.title,
                             note: job.note,
                         }
@@ -30,9 +33,12 @@ const createJobForUser = (uid, job) => {
                     })
             }
             else {
+                console.log("else");
                 if (foundJob[0].userId.find(element => uid === element) !== undefined) {
+                    console.log("else if");
                     return null;
                 } else {
+                    console.log("else else");
                     usersDao.addJobToUser(uid, foundJob[0].jobId);
                     return jobsDao.updateJobUser(foundJob[0]._id, uid);
                 }
