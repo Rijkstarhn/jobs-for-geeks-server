@@ -4,10 +4,10 @@ const usersSchema = mongoose.Schema(
     {
             username: String,
             password: String,
-            firstName: String,
-            lastName: String,
+            firstname: String,
+            lastname: String,
             address: String,
-            affiliation: String,
+            company: String,
             email: String,
             phone: String,
             role: {type: String, enum: ['JOB SEEKER', 'RECRUITER']},
