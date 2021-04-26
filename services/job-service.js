@@ -36,7 +36,7 @@ const createJobForUser = (uid, job) => {
                 console.log("else");
                 if (foundJob[0].userId.find(element => uid === element) !== undefined) {
                     console.log("else if");
-                    return null;
+                    return "403";
                 } else {
                     console.log("else else");
                     usersDao.addJobToUser(uid, foundJob[0].jobId);
